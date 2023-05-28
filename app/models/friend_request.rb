@@ -2,6 +2,8 @@ class FriendRequest < ApplicationRecord
     belongs_to :sender, class_name: 'User'
     belongs_to :receiver, class_name: 'User'
 
+    has_one :acceptance, foreign_key: :metadata, class_name: 'Friendship'
+
     validate :sender_and_receiver_shouldnt_be_the_same
 
     def sender_and_receiver_shouldnt_be_the_same
@@ -10,3 +12,4 @@ class FriendRequest < ApplicationRecord
         end
     end
 end
+    
