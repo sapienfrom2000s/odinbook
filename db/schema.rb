@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_044257) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "metadata_id", null: false
-    t.index ["metadata_id"], name: "index_friendships_on_metadata_id"
+    t.index ["metadata_id"], name: "index_friendships_on_metadata_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

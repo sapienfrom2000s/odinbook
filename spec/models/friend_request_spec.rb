@@ -11,7 +11,7 @@ RSpec.describe FriendRequest, type: :model do
     it "so that user1 is on the sending end" do
       user1 = create(:user)
       user2 = create(:user)
-      FriendRequest.create(sender_id:user1.id, receiver_id:user2.id)
+      FriendRequest.create(sender_id:user1.id, receiver_id:user2.id)  
       expect(user1.sent_requests.first.sender).to eq(user1)
     end
 
