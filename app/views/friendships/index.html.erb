@@ -1,27 +1,22 @@
 <p style="color: green"><%= notice %></p>
 
-<h5>Friends</h5>
+<h4>Friends</h4>
 
-# <div id="friendships">
-#   <% @friendships.each do |friendship| %>
-#     <%= render friendship %>
-#     <p>
-#       <%= link_to "Show this friendship", friendship %>
-#     </p>
-#   <% end %>
-# </div>
+<div id="friendships">
+  <% @friends.each do |friend| %>
+    <%= friend.username %><br>
+  <% end %>
+</div>
 
-# <%= link_to "New friendship", new_friendship_path %>
-
-<h5>Friend Requests</h5>
+<h4>Friend Requests</h4>
 .
 .
 .
-<h5>Sent Requests</h5>
+<h4>Sent Requests</h4>
 .
 .
 .
-<h5>Find Friends</h5>
+<h4>Find Friends</h4>
 .
 .
 .

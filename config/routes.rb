@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   devise_scope :user do
-    root to: "devise/sessions#new"
+    get 'login', to: 'friendships#index'
   end
+
+  root 'friendships#index'
 end
