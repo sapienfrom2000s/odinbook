@@ -1,9 +1,9 @@
 class FriendshipsController < ApplicationController
-  before_action :set_friendship, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /friendships or /friendships.json
   def index
-    @friends = Friendship.existing(current_user)
+    @connections = Friendship.connections(current_user)
   end
 
   # GET /friendships/1 or /friendships/1.json
@@ -49,7 +49,8 @@ class FriendshipsController < ApplicationController
 
   # DELETE /friendships/1 or /friendships/1.json
   def destroy
-    @friendship.destroy
+    @connection = FriendRequest.find(friendship_params[:friendrequest_id])
+    @connection.destroy if @connection.sender == current_user || @connection.receiver == current_user
 
     respond_to do |format|
       format.html { redirect_to friendships_url, notice: "Friendship was successfully destroyed." }
@@ -57,14 +58,8 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_friendship
-      @friendship = Friendship.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def friendship_params
-      params.fetch(:friendship, {})
-    end
+  private   
+  def friendship_params
+    params.require(:friendship).permit(:friendrequest_id)
+  end
 end
