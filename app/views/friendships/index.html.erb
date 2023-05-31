@@ -11,9 +11,13 @@
   <% end %>
 </div>
 <h4>Friend Requests</h4>
-.
-.
-.
+<div id="friend_requests">
+  <% @friend_requests.includes(:sender) %>
+  <% @friend_requests.each do |request| %>
+    <%= request.sender.username %><br>
+    <%= render partial: "accept_friendship_form", locals: { friendrequest_id: request.id } %>
+  <% end %>
+</div>
 <h4>Sent Requests</h4>
 .
 .

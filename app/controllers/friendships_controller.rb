@@ -4,6 +4,7 @@ class FriendshipsController < ApplicationController
   # GET /friendships or /friendships.json
   def index
     @connections = Friendship.connections(current_user)
+    @friend_requests = Friendship.requests(current_user)
   end
 
   # GET /friendships/1 or /friendships/1.json
@@ -20,12 +21,13 @@ class FriendshipsController < ApplicationController
   end
 
   # POST /friendships or /friendships.json
-  def create
-    @friendship = Friendship.new(friendship_params)
+  def create 
+    @friendship = Friendship.new(metadata_id:friendship_params[:friendrequest_id])
+    @friendship = nil unless FriendRequest.find(friendship_params[:friendrequest_id]).receiver == current_user
 
     respond_to do |format|
       if @friendship.save
-        format.html { redirect_to friendship_url(@friendship), notice: "Friendship was successfully created." }
+        format.html { redirect_to friendships_url, notice: "Friendship was successfully created." }
         format.json { render :show, status: :created, location: @friendship }
       else
         format.html { render :new, status: :unprocessable_entity }
