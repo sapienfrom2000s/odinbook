@@ -11,5 +11,9 @@ class FriendRequest < ApplicationRecord
             errors.add(:base, "sender and receiver can't be the same")
         end
     end
-end
-    
+
+    def self.sent(current_user)
+        anti_join = FriendRequest.joins("LEFT JOIN friendships ON friend_requests.id = friendships.metadata_id").where("friendships.metadata_id IS NULL")
+        connections = anti_join.where(sender_id: current_user.id)
+    end
+end    

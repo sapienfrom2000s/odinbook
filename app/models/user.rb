@@ -26,6 +26,11 @@ class User < ApplicationRecord
     end
   end
 
+  def self.find_friends(current_user)
+    nonpotential_friends = User.first.sent_requests.pluck(:receiver_id)+User.first.received_requests.pluck(:sender_id)+[current_user.id]
+    potential_friends = User.where.not(id:nonpotential_friends)
+  end
+
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 

@@ -5,6 +5,8 @@ class FriendshipsController < ApplicationController
   def index
     @connections = Friendship.connections(current_user)
     @friend_requests = Friendship.requests(current_user)
+    @sent_requests = FriendRequest.sent(current_user)
+    @potential_friends = User.find_friends(current_user)
   end
 
   # GET /friendships/1 or /friendships/1.json
@@ -32,6 +34,18 @@ class FriendshipsController < ApplicationController
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @friendship.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def request_create
+    @friendrequest = FriendRequest.new
+    @friendrequest.sender = current_user
+    @friendrequest.receiver = User.find(friendship_params[:friendrequest_id])
+    if @friendrequest.save
+      respond_to do |format|
+        format.html { redirect_to friendships_url, notice: "Friend Request was successfully sent." }
+        format.json { head :no_content }
       end
     end
   end
