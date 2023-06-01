@@ -1,0 +1,4 @@
+<%= form_with(url: '/find_friends', scope: :potential_friend) do |form| %>
+    <%= form.hidden_field :receiver_id, value: receiver_id %>
+    <%= form.submit "Send FR", data: { turbo_confirm: "Are you sure?" } %>
+<% end %>

@@ -6,7 +6,7 @@
   <% @connections.includes(:sender, :receiver) %>
   <% @connections.each do |connection| %>
     <%= Friendship.friend(connection,current_user) %>
-    <%= render partial: "remove_friend_form", locals: { friendrequest_id: connection.id } %>
+    <%= render partial: "remove_friend", locals: { friendrequest_id: connection.id, name: "Remove" } %>
     <br>
   <% end %>
 </div>
@@ -16,20 +16,5 @@
   <% @friend_requests.each do |request| %>
     <%= request.sender.username %><br>
     <%= render partial: "accept_friendship_form", locals: { friendrequest_id: request.id } %>
-  <% end %>
-</div>
-<h4>Sent Requests</h4>
-<div id="sent_requests">
-  <% @sent_requests.includes(:sender) %>
-  <% @sent_requests.each do |request| %>
-    <%= request.receiver.username %><br>
-    <%= render partial: "remove_friend_form", locals: { friendrequest_id: request.id } %>
-  <% end %>
-</div>
-<h4>Find Friends</h4>
-<div id="potential_friends">
-  <% @potential_friends.each do |potential_friend| %>
-    <%= potential_friend.username %><br>
-    <%= render partial: "send_friend_request_form", locals: { friendrequest_id: potential_friend.id } %>
   <% end %>
 </div>

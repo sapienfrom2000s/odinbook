@@ -12,8 +12,7 @@ class FriendRequest < ApplicationRecord
         end
     end
 
-    def self.sent(current_user)
-        anti_join = FriendRequest.joins("LEFT JOIN friendships ON friend_requests.id = friendships.metadata_id").where("friendships.metadata_id IS NULL")
-        connections = anti_join.where(sender_id: current_user.id)
+    def self.other_end_is_current_user?(connection, current_user)
+        @connection.sender == current_user || @connection.receiver == current_user
     end
 end    

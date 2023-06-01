@@ -5,21 +5,11 @@ class FriendshipsController < ApplicationController
   def index
     @connections = Friendship.connections(current_user)
     @friend_requests = Friendship.requests(current_user)
-    @sent_requests = FriendRequest.sent(current_user)
-    @potential_friends = User.find_friends(current_user)
-  end
-
-  # GET /friendships/1 or /friendships/1.json
-  def show
   end
 
   # GET /friendships/new
   def new
     @friendship = Friendship.new
-  end
-
-  # GET /friendships/1/edit
-  def edit
   end
 
   # POST /friendships or /friendships.json
@@ -38,39 +28,18 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  def request_create
-    @friendrequest = FriendRequest.new
-    @friendrequest.sender = current_user
-    @friendrequest.receiver = User.find(friendship_params[:friendrequest_id])
-    if @friendrequest.save
-      respond_to do |format|
-        format.html { redirect_to friendships_url, notice: "Friend Request was successfully sent." }
-        format.json { head :no_content }
-      end
-    end
-  end
-
-  # PATCH/PUT /friendships/1 or /friendships/1.json
-  def update
-    respond_to do |format|
-      if @friendship.update(friendship_params)
-        format.html { redirect_to friendship_url(@friendship), notice: "Friendship was successfully updated." }
-        format.json { render :show, status: :ok, location: @friendship }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @friendship.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /friendships/1 or /friendships/1.json
   def destroy
     @connection = FriendRequest.find(friendship_params[:friendrequest_id])
-    @connection.destroy if @connection.sender == current_user || @connection.receiver == current_user
+    destroyed = @connection.destroy if FriendRequest.other_end_is_current_user?(@connection, current_user)
 
     respond_to do |format|
-      format.html { redirect_to friendships_url, notice: "Friendship was successfully destroyed." }
-      format.json { head :no_content }
+      if destroyed
+        format.html { redirect_to friendships_url, notice: "Friendship was successfully destroyed." }
+        format.json { head :no_content }
+      else
+        format.html { render :index, notice: "Unable to remove friend" }
+        format.json { render json: @friendship.errors, status: :unprocessable_entity }
+      end
     end
   end
 

@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :sent_requests, foreign_key: :sender, class_name: "FriendRequest"
   has_many :received_requests, foreign_key: :receiver, class_name: "FriendRequest"
 
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+
   attr_writer :login
 
   def login
@@ -31,7 +34,9 @@ class User < ApplicationRecord
     potential_friends = User.where.not(id:nonpotential_friends)
   end
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false }
-  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+  def self.sent_requests(current_user)
+    anti_join = FriendRequest.joins("LEFT JOIN friendships ON friend_requests.id = friendships.metadata_id").where("friendships.metadata_id IS NULL")
+    connections = anti_join.where(sender_id: current_user.id)
+  end
 
 end

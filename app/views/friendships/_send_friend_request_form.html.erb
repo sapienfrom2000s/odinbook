@@ -1,4 +1,0 @@
-<%= form_with(url: '/send_request', scope: :friendship) do |form| %>
-    <%= form.hidden_field :friendrequest_id, value: friendrequest_id %>
-    <%= form.submit "Send FR", data: { turbo_confirm: "Are you sure?" } %>
-<% end %>
