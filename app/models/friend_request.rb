@@ -11,8 +11,4 @@ class FriendRequest < ApplicationRecord
             errors.add(:base, "sender and receiver can't be the same")
         end
     end
-
-    def self.other_end_is_current_user?(connection, current_user)
-        @connection.sender == current_user || @connection.receiver == current_user
-    end
 end    

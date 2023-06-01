@@ -13,6 +13,6 @@
   <% @sent_requests.includes(:sender) %>
   <% @sent_requests.each do |request| %>
     <%= request.receiver.username %><br>
-    <%= render partial: "remove_friend", locals: { friendrequest_id: request.id, name: "Cancel" } %>
+    <%= render partial: "cancel_request_form", locals: { id: request.id } %>
   <% end %>
 </div>

@@ -6,7 +6,7 @@
   <% @connections.includes(:sender, :receiver) %>
   <% @connections.each do |connection| %>
     <%= Friendship.friend(connection,current_user) %>
-    <%= render partial: "remove_friend", locals: { friendrequest_id: connection.id, name: "Remove" } %>
+    <%= render partial: "remove_friend", locals: { friendrequest_id: connection.id } %>
     <br>
   <% end %>
 </div>

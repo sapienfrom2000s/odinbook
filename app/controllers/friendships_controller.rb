@@ -30,7 +30,7 @@ class FriendshipsController < ApplicationController
 
   def destroy
     @connection = FriendRequest.find(friendship_params[:friendrequest_id])
-    destroyed = @connection.destroy if FriendRequest.other_end_is_current_user?(@connection, current_user)
+    destroyed = @connection.destroy if @connection.sender == current_user || @connection.receiver == current_user
 
     respond_to do |format|
       if destroyed
