@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :posts
   resources :friendships, except: [:destroy]
   delete '/friendships', to: 'friendships#destroy'
   post '/send_request', to: 'friendships#request_create'
