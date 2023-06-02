@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :sent_requests, foreign_key: :sender, class_name: 'FriendRequest'
   has_many :received_requests, foreign_key: :receiver, class_name: 'FriendRequest'
+  has_many :posts
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :username, format: { with: /^[a-zA-Z0-9_.]*$/, multiline: true }
