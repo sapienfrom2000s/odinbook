@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddReferencesToUser < ActiveRecord::Migration[7.0]
   def change
     add_reference :friend_requests, :sender, null: false, foreign_key: { to_table: :users }

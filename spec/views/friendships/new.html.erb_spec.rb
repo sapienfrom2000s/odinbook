@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "friendships/new", type: :view do
+RSpec.describe 'friendships/new', type: :view do
   before(:each) do
-    assign(:friendship, Friendship.new())
+    assign(:friendship, Friendship.new)
   end
 
-  it "renders new friendship form" do
+  it 'renders new friendship form' do
     render
 
-    assert_select "form[action=?][method=?]", friendships_path, "post" do
+    assert_select 'form[action=?][method=?]', friendships_path, 'post' do
     end
   end
 end

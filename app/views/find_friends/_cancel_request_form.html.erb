@@ -1,4 +1,4 @@
 <%= form_with(url: 'find_friends', scope: :friend_request, method: :delete) do |form| %>
     <%= form.hidden_field :id, value: id %>
-    <%= form.submit "Remove", data: { turbo_confirm: "Are you sure?" } %>
+    <%= form.submit "Cancel", data: { turbo_confirm: "Are you sure?" } %>
 <% end %>
