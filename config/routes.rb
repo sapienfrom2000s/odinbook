@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  scope ":username" do 
+  scope ':username' do
     resources :posts
   end
 

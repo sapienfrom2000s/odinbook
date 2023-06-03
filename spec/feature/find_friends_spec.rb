@@ -1,10 +1,12 @@
-require 'pry-byebug'
-require "rails_helper"
+# frozen_string_literal: true
 
-describe "Send Friend Request", type: :feature do
-  it "when Accept button is clicked" do
-    user1 = create(:user)
-    user2 = create(:user)
+require 'pry-byebug'
+require 'rails_helper'
+
+describe 'Send Friend Request', type: :feature do
+  it 'when Accept button is clicked' do
+    create(:user)
+    create(:user)
 
     visit '/users/sign_in'
 
@@ -16,10 +18,10 @@ describe "Send Friend Request", type: :feature do
 
     click_button 'Send FR'
 
-    expect(page).to have_content "Friend Request was successfully sent."
+    expect(page).to have_content 'Friend Request was successfully sent.'
 
     click_button 'Cancel'
 
-    expect(page).to have_content "Friend request was retracted."    
+    expect(page).to have_content 'Friend request was retracted.'
   end
- end
+end
