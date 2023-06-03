@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_username, only: %i[ create ]
+  before_action :authenticate_user!
 
   # GET /posts or /posts.json
   def index
@@ -22,10 +24,11 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
+    @post.creator = current_user
 
     respond_to do |format|
-      if @post.save
-        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
+      if (current_user.username == @user.username) && @post.save
+        format.html { redirect_to post_url(current_user.username,@post), notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -63,8 +66,12 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
+    def set_username
+      @user = User.where('lower(username) = ?', params[:username].downcase).first
+    end
+
     # Only allow a list of trusted parameters through.
     def post_params
-      params.fetch(:post, {})
+      params.require(:post).permit(:title, :body)    
     end
 end
