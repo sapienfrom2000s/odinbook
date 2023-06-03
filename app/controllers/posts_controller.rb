@@ -30,7 +30,7 @@ class PostsController < ApplicationController
     @post.creator = current_user
 
     respond_to do |format|
-      if (current_user.username == @user.username) && @post.save
+      if @post.save
         format.html { redirect_to post_url(current_user.username,@post), notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -56,7 +56,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1 or /posts/1.json
   def destroy
     respond_to do |format|
-      if (current_user.username == @user.username) && @post.destroy
+      if @post.destroy
         format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
         format.json { head :no_content }
       end
