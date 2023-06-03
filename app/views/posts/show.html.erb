@@ -2,9 +2,4 @@
 
 <%= render @post %>
 
-<div>
-  <%= link_to "Edit this post", edit_post_path(current_user.username,@post) %> |
-  <%= link_to "Back to posts", posts_path %>
-
-  <%= button_to "Destroy this post", post_url(current_user.username,@post), method: :delete %>
-</div>
+<%= render partial: "edit_links", locals: { post: @post } if current_user.username == params[:username]  %>

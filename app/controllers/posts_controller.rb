@@ -1,15 +1,17 @@
 class PostsController < ApplicationController
+
+  before_action :set_username, except: %i[ index show ]
   before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :set_username, only: %i[ create update destroy ]
   before_action :authenticate_user!
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.where('user_id = ?', user_details.id)
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post = Post.find_by(user_id: user_details.id, id: params[:id])
   end
 
   # GET /posts/new
@@ -19,6 +21,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    @posts = Post.where('user_id = ?', user_details.id)
   end
 
   # POST /posts or /posts.json
@@ -40,7 +43,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     respond_to do |format|
-      if (current_user.username == @user.username) && @post.update(post_params)
+      if @post.update(post_params)
         format.html { redirect_to post_url(current_user.username,@post), notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -52,11 +55,11 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
-    (current_user.username == @user.username) && @post.destroy
-
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
-      format.json { head :no_content }
+      if (current_user.username == @user.username) && @post.destroy
+        format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -67,6 +70,11 @@ class PostsController < ApplicationController
     end
 
     def set_username
+      user_details
+      redirect_to posts_url(current_user.username), notice: "You cannot access that page" unless @user.username == current_user.username 
+    end
+
+    def user_details
       @user = User.where('lower(username) = ?', params[:username].downcase).first
     end
 
