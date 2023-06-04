@@ -7,12 +7,12 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.where('user_id = ?', user_details.id)
+    @posts = Post.where('user_id = ?', user.id)
   end
 
   # GET /posts/1 or /posts/1.json
   def show
-    @post = Post.find_by(user_id: user_details.id, id: params[:id])
+    @post = Post.find_by(user_id: user.id, id: params[:id])
   end
 
   # GET /posts/new
@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    @posts = Post.where('user_id = ?', user_details.id)
+    @posts = Post.where('user_id = ?', user.id)
   end
 
   # POST /posts or /posts.json
@@ -72,14 +72,14 @@ class PostsController < ApplicationController
   end
 
   def set_username
-    user_details
+    user
     return if @user.username == current_user.username
 
     redirect_to posts_url(current_user.username),
                 notice: 'You cannot access that page'
   end
 
-  def user_details
+  def user
     @user = User.where('lower(username) = ?', params[:username].downcase).first
   end
 

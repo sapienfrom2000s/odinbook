@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require 'pry-byebug'
 require 'rails_helper'
 
-describe 'Send Friend Request', type: :feature do
-  it 'when Accept button is clicked' do
+feature 'Send Friend Request', type: :feature do
+  scenario 'when Accept button is clicked' do
     create(:user)
     create(:user)
 

@@ -7,7 +7,7 @@
     <% @post = post %>
     <%= render @post %>
     <p>
-      <%= link_to "Show this post", post_url(current_user.username,@post) %>
+      <%= link_to "Show this post", post_url(params[:username],@post) %>
     </p>
   <% end %>
 </div>
