@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :like do
-    
   end
 
   factory :post do

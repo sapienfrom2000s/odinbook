@@ -6,5 +6,5 @@ class Post < ApplicationRecord
   validates :body, length: { minimum: 30 }
 
   has_many :likes
-  has_many :users_who_liked, :through => :likes, :source => :user
+  has_many :users_who_liked, through: :likes, source: :user
 end

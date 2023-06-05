@@ -2,4 +2,7 @@
 
 <%= render @post %>
 
+<%= render partial: "likes/like_dislike_button_form", locals:{ button_name:Like.like_dislike_button(@post, current_user),\
+    url: Like.submission_url(@post, current_user) } %>
+
 <%= render partial: "edit_links", locals: { post: @post } if current_user.username == params[:username]  %>

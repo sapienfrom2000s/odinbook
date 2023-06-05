@@ -2,7 +2,9 @@
 
 Rails.application.routes.draw do
   scope ':username' do
-    resources :posts
+    resources :posts do
+      resources :likes, only: %i[create destroy]
+    end
   end
 
   resources :friendships, except: [:destroy]
