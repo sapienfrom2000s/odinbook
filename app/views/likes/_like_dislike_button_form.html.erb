@@ -1,5 +1,0 @@
-<% method = 'post' %>
-<% method = 'delete' if button_name == 'Unlike'  %>
-<%= form_with url: "http://localhost:3000/#{url}", :method => "#{method}" do |form| %>
-<%= form.submit "#{button_name}" %>
-<% end %>

@@ -2,11 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Like, type: :model do
   before do 
-    user = create(:user)
-    post = Post.new(title:'this is more than 10 chars', body:'this is....................................
+    user1 = create(:user)
+    user2 = create(:user)
+    post1 = Post.new(title:'this is more than 10 chars', body:'this is....................................
       .................more than 30 chars')
-    post.creator = user
-    post.save
+    post1.creator = user1
+    post1.save
+    post1.creator = user2
+    post1.save
   end
   context 'when a post is liked' do
     it 'creates association bw user and the post' do

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'pry-byebug'
 
 feature 'create, modify, access posts', type: :feature do
   background 'log in user' do

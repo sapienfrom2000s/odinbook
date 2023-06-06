@@ -3,11 +3,19 @@
 <h1>Posts</h1>
 
 <div id="posts">
+  <% @posts.includes(:creator) %>
   <% @posts.each do |post| %>
     <% @post = post %>
     <%= render @post %>
-    <%= render partial: "likes/like_dislike_button_form", locals:{ button_name:Like.like_dislike_button(@post, current_user),\
-     url: Like.submission_url(@post, current_user) } %>
+    <% like = Like.metadata(post, current_user) %>
+    <% unless like.exists? %>
+    <%= render partial: "likes/like_button_form", locals: {post_id: post.id} %>
+     <% else %>
+     <%= render partial: "likes/dislike_button_form", locals: {post_id: post.id, like_id: like.first.id} %>
+     <% end %>
+     <div class='likes_count'>
+        Likes: <%= @post.likes.count %>
+     </div>
     <p>
       <%= link_to "Show this post", post_url(params[:username],@post) %>
     </p>

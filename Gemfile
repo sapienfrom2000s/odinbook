@@ -70,6 +70,7 @@ group :development do
   # gem "spring"
   gem 'guard'
   gem 'guard-rubocop'
+  gem 'bullet'
 end
 
 group :test do
