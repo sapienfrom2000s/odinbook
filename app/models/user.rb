@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :likes
   has_many :liked_posts, through: :likes, source: :post
+  has_many :comments
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :username, format: { with: /^[a-zA-Z0-9_.]*$/, multiline: true }

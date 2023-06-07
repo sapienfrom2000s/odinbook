@@ -1,11 +1,25 @@
 <p style="color: green"><%= notice %></p>
-
+<% post = @post%>
 <%= render @post %>
 
-<%= render partial: "likes/like_dislike_button_form", locals:{ button_name:Like.like_dislike_button(@post, current_user),\
-    url: Like.submission_url(@post, current_user) } %>
+<% like = Like.metadata(post, current_user) %>
+<% unless like.exists? %>
+<%= render partial: "likes/like_button_form", locals: {post_id: post.id} %>
+<% else %>
+<%= render partial: "likes/dislike_button_form", locals: {post_id: post.id, like_id: like.first.id} %>
+<% end %>
 <div class='likes_count'>
 Likes: <%= @post.likes.count %>
 </div>
 
 <%= render partial: "edit_links", locals: { post: @post } if current_user.username == params[:username]  %>
+
+<% @comments.includes(:creator).each do |comment| %>
+<p><b><%= comment.creator.username %></b><br>
+<%= comment.body %></p>
+<%= link_to 'Reply' %>
+<%= link_to 'Edit' %>
+<%= link_to 'Delete'%>
+<% end %>
+
+<%= render 'comments/form' %>

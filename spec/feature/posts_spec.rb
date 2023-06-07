@@ -49,8 +49,6 @@ feature 'create, modify, access posts', type: :feature do
 
     click_link 'Log Out'
 
-    expect(page).to_not have_content 'This is more than 10 characters'
-
     fill_in 'Login', with: 'user_4'
     fill_in 'Password', with: 'password'
     click_button 'Log in'

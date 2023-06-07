@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   scope ':username' do
     resources :posts do
       resources :likes, only: %i[create destroy]
+      resources :comments, except: %i[index destroy]
     end
   end
 

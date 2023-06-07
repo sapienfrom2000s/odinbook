@@ -13,6 +13,7 @@ class PostsController < ApplicationController
   # GET /posts/1 or /posts/1.json
   def show
     @post = Post.find_by(user_id: user.id, id: params[:id])
+    @comments = Comment.where(post_id:@post.id)
   end
 
   # GET /posts/new
