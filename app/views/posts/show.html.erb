@@ -14,12 +14,25 @@ Likes: <%= @post.likes.count %>
 
 <%= render partial: "edit_links", locals: { post: @post } if current_user.username == params[:username]  %>
 
-<% @comments.includes(:creator).each do |comment| %>
-<p><b><%= comment.creator.username %></b><br>
-<%= comment.body %></p>
-<%= link_to 'Reply' %>
-<%= link_to 'Edit' %>
-<%= link_to 'Delete'%>
-<% end %>
+<%= render partial: "comments/index", locals: { comments: @comments, level: 1 } %>
 
-<%= render 'comments/form' %>
+<style>
+  .reply-form{
+    display:none;
+  }
+
+  .nesting{
+    margin-left: 2em;
+  }
+</style>
+  
+<script>
+var replyLinks = document.querySelectorAll('.reply-link')
+replyLinks.forEach(replyLink => {
+  replyLink.addEventListener('click', function(e) {
+    e.preventDefault()
+    comment_id = e.target.parentNode.classList[1]
+    document.getElementsByClassName(comment_id)[0].style.display = 'block'
+  });
+});
+</script>

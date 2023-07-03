@@ -1,0 +1,21 @@
+<% comments.includes(:creator, :children).each do |comment| %>
+  <p><b><%= comment.creator.username %></b><br>
+  <%= comment.body %></p>
+  <% comment_id = "comment_"+comment.id.to_s %>
+  <%= content_tag :div, class:["reply-form", comment_id] do %>
+    <%= render partial:'comments/form', locals: { button: 'Reply', parent_id: comment. id } %> 
+  <% end -%>
+
+  <%= content_tag :div, class:["reply-link", comment_id] do %>
+    <%= link_to 'Reply' %>     
+  <% end -%>
+  <% unless comment.children.empty? %>
+  <div class = 'nesting'>
+  <%= render partial: 'comments/index', locals: { comments: comment.children, level: level+1}%>
+  </div>
+  <% end %>
+<% end %>
+
+
+<%= render partial:'comments/form', locals: { button: 'Comment', parent_id: nil } if level == 1 %>
+

@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
 
   # GET /comments or /comments.json
   def index
-    @comments = Comment.all
+    @comments = Comment.hash_tree
   end
 
   # GET /comments/1 or /comments/1.json
@@ -68,6 +68,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:body)
+      params.require(:comment).permit(:body, :parent_id)
     end
 end
