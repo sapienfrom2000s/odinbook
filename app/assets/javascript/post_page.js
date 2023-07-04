@@ -4,5 +4,6 @@ replyLinks.forEach(replyLink => {
     e.preventDefault()
     comment_id = e.target.parentNode.classList[1]
     document.getElementsByClassName(comment_id)[0].style.display = 'block'
+    document.getElementsByClassName(comment_id)[1].style.display = 'none'    
   });
 });
