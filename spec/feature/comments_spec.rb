@@ -1,14 +1,14 @@
 require 'rails_helper'
 require 'pry-byebug'
 
-feature 'Make comment on post', type: :feature do
+feature 'Make comment on post', type: :system do
   background 'create user' do
     create(:user)
     Post.create(user_id:User.first.id, title:'something other than next', body: 'again very large probably larger then life in the strong winds')
-    visit '/users/sign_in'
   end
 
   scenario 'make a root comment' do
+    visit '/users/sign_in'
     fill_in 'Login', with: 'user_1'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
@@ -59,7 +59,6 @@ feature 'Make comment on post', type: :feature do
 
     expect(page).to have_content('Comment was successfully made.')
 
-    binding.pry
     page.find_all('.reply-link').first.click
     
     reply_box2 = page.find_all('#comment_body').first
