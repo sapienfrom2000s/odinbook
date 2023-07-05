@@ -6,7 +6,7 @@ class FindFriendsController < ApplicationController
 
   def index
     @potential_friends = User.find_friends(current_user)
-    @sent_requests = User.sent_requests(current_user)
+    @sent_requests = User.sent_friendrequests(current_user)
   end
 
   def create

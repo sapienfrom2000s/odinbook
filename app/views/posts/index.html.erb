@@ -1,9 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
+<%= link_to "New post", new_post_path if current_user.username == params[:username] %>
+
 <h1>Posts</h1>
 
 <div id="posts">
-  <% @posts.includes(:creator) %>
   <% @posts.each do |post| %>
     <% @post = post %>
     <%= render @post %>
@@ -17,9 +18,7 @@
         Likes: <%= @post.likes.count %>
      </div>
     <p>
-      <%= link_to "Show this post", post_url(params[:username],@post) %>
+      <%= link_to "Show this post", post_url(post.creator.username,@post) %>
     </p>
   <% end %>
 </div>
-
-<%= link_to "New post", new_post_path if current_user.username == params[:username] %>

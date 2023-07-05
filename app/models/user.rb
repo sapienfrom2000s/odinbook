@@ -33,13 +33,26 @@ class User < ApplicationRecord
     end
   end
 
+  #there has to be a way to remove the current_user nuisance
+
   def self.find_friends(current_user)
-    nonpotential_friends = User.first.sent_requests.pluck(:receiver_id) + User.first.received_requests.pluck(:sender_id) + [current_user.id]
+    nonpotential_friends = current_user.sent_requests.pluck(:receiver_id) + current_user.received_requests.pluck(:sender_id) + [current_user.id]
     User.where.not(id: nonpotential_friends)
   end
 
-  def self.sent_requests(current_user)
+  def self.sent_friendrequests(current_user)
     anti_join = FriendRequest.joins('LEFT JOIN friendships ON friend_requests.id = friendships.metadata_id').where('friendships.metadata_id IS NULL')
     anti_join.where(sender_id: current_user.id)
+  end
+
+  def self.friends(current_user)
+    connections = Friendship.connections(current_user)
+    connections.map do |connection|
+      unless connection.receiver.id == current_user.id
+        connection.receiver
+      else
+        connection.sender
+      end
+    end
   end
 end

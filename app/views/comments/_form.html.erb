@@ -1,9 +1,9 @@
   <%= form_with(model: @comment, url: post_comments_url(current_user.username, @post), scope: :comment) do |form| %>
     <div>
     <p>
-      <%= form.text_area :body, cols:'80', rows:'5' %><br>
+      <%= form.text_area :body, cols:'80', rows:'5' %>
     </p>
-     <%= form.hidden_field :parent_id, value: parent_id%><br>
+     <%= form.hidden_field :parent_id, value: parent_id%>
     <p>
     <%= form.submit "#{button}"%>
     </p>

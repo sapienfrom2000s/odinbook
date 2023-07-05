@@ -3,7 +3,7 @@ To Do: \
 [x] Users can post, posts\
 [x] Liking posts is possible\
 [x] Commenting and replying to comments is possible\
-[ ] Feeds\
+[x] Feeds\
 [ ] Option of protected post, so that only friends can see and friend can post\
 [ ] Messages\
 [ ] notification\

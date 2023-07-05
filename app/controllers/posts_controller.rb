@@ -7,7 +7,7 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.where('user_id = ?', user.id)
+    @posts = Post.includes(:creator).where('user_id = ?', user.id)
   end
 
   # GET /posts/1 or /posts/1.json
