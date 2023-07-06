@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :comments, except: %i[index destroy]
     end
     resources :feeds, only: %[index]
-    resources :message
+    resources :message, only: %i[index new create]
   end
 
   resources :friendships, except: [:destroy]
