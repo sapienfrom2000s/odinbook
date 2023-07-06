@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many :liked_posts, through: :likes, source: :post
   has_many :comments
 
+  has_many :sent_messages, foreign_key: :sender, class_name: 'Message'
+  has_many :received_messages, foreign_key: :receiver, class_name: 'Message'
+
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :username, format: { with: /^[a-zA-Z0-9_.]*$/, multiline: true }
 
@@ -48,11 +51,8 @@ class User < ApplicationRecord
   def self.friends(current_user)
     connections = Friendship.connections(current_user)
     connections.map do |connection|
-      unless connection.receiver.id == current_user.id
-        connection.receiver
-      else
-        connection.sender
-      end
+      next connection.receiver unless connection.receiver.id == current_user.id
+      connection.sender
     end
   end
 end

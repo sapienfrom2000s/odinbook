@@ -4,7 +4,6 @@ To Do: \
 [x] Liking posts is possible\
 [x] Commenting and replying to comments is possible\
 [x] Feeds\
-[ ] Option of protected post, so that only friends can see and friend can post\
-[ ] Messages\
 [ ] notification\
+[ ] Messages\
 [ ] add hotrails
