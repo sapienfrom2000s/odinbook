@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry-byebug'
 
 feature 'Make comment on post', type: :system do
   background 'create user' do
@@ -7,11 +6,8 @@ feature 'Make comment on post', type: :system do
     Post.create(user_id:User.first.id, title:'something other than next', body: 'again very large probably larger then life in the strong winds')
   end
 
-  scenario 'make a root comment' do
-    visit '/users/sign_in'
-    fill_in 'Login', with: 'user_1'
-    fill_in 'Password', with: 'password'
-    click_button 'Log in'
+  it 'make a root comment' do
+    log_in_as('user_1')
 
     sleep 2
 
@@ -23,12 +19,8 @@ feature 'Make comment on post', type: :system do
     expect(page).to have_content('Comment was successfully made.')
   end
 
-  scenario 'make a reply to root comment' do
-
-    visit '/users/sign_in'
-    fill_in 'Login', with: 'user_2'
-    fill_in 'Password', with: 'password'
-    click_button 'Log in'
+  it 'make a reply to root comment' do
+    log_in_as('user_2')
 
     sleep 2
     visit "/user_2/posts/#{User.first.posts.first.id}"
@@ -46,13 +38,10 @@ feature 'Make comment on post', type: :system do
 
   end
 
-  scenario 'make two replies to root comment' do
-    visit '/users/sign_in'
-    fill_in 'Login', with: 'user_3'
-    fill_in 'Password', with: 'password'
-    click_button 'Log in'
+  it 'make two replies to root comment' do
+    log_in_as('user_3')
 
-    sleep 3
+    sleep 2
     visit "/user_3/posts/#{User.first.posts.first.id}"
 
     comment_box = page.find('#comment_body').fill_in with: 'some random comment'
@@ -77,11 +66,8 @@ feature 'Make comment on post', type: :system do
     page.assert_selector('.nesting', count: 1)
   end
 
-  scenario 'make two level replies(root --> reply --> reply) to the root comment' do
-    visit '/users/sign_in'
-    fill_in 'Login', with: 'user_4'
-    fill_in 'Password', with: 'password'
-    click_button 'Log in'
+  it 'make two level replies(root --> reply --> reply) to the root comment' do
+    log_in_as('user_4')
 
     sleep 3
     visit "/user_4/posts/#{User.first.posts.first.id}"
