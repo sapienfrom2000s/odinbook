@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :friendships, except: [:destroy]
   delete '/friendships', to: 'friendships#destroy'
   post '/send_request', to: 'friendships#request_create'
+  get '/message/friends', to: 'friendships#list_friends'
 
   resources :find_friends, only: %i[new index create]
   delete '/find_friends', to: 'find_friends#destroy'

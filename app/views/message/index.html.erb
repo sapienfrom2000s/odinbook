@@ -1,0 +1,25 @@
+<%= flash[:notice] %>
+
+<%= form_with model: @message, url: message_index_path(params[:username]) do |form| %>
+  <div class='message container'>
+    <%= form.text_area :body, cols:'80', rows:'5' %>
+  </div>
+  
+  <div class = 'message submit_button'>
+    <%= form.submit 'Send'%>
+  </div>
+<% end %>
+
+<div class='chat'>
+<% last_message_owner = nil %>
+<% @messages.includes(:sender).each do |message| %>
+  <div class='username'>
+  <b><%= message.sender.username unless last_message_owner == message.sender %></b>
+  </div>
+  <div class='body'>
+  <%= message.body %>
+  <%= message.created_at.strftime('%H:%M') %>
+  <% last_message_owner = message.sender %>
+  </div>
+<% end %>
+</div>

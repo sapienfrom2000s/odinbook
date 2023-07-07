@@ -6,14 +6,14 @@ feature 'Make comment on post', type: :system do
     Post.create(user_id:User.first.id, title:'something other than next', body: 'again very large probably larger then life in the strong winds')
   end
 
-  it 'make a root comment' do
+  it 'makes a root comment' do
     log_in_as('user_1')
 
     sleep 2
+    visit post_path('user_1', User.first.posts.first.id)
 
-    visit "/user_1/posts/#{User.first.posts.first.id}"
-
-    comment_box = page.find('#comment_body').fill_in with: 'some random comment'
+    comment_box = page.find('#comment_body')
+    comment_box.fill_in with: 'some random comment'
     
     click_on 'Comment'
     expect(page).to have_content('Comment was successfully made.')
@@ -44,7 +44,8 @@ feature 'Make comment on post', type: :system do
     sleep 2
     visit "/user_3/posts/#{User.first.posts.first.id}"
 
-    comment_box = page.find('#comment_body').fill_in with: 'some random comment'
+    comment_box = page.find('#comment_body')
+    comment_box.fill_in with: 'some random comment'
     
     click_on 'Comment'
     click_link 'Reply'
@@ -69,7 +70,7 @@ feature 'Make comment on post', type: :system do
   it 'make two level replies(root --> reply --> reply) to the root comment' do
     log_in_as('user_4')
 
-    sleep 3
+    sleep 2
     visit "/user_4/posts/#{User.first.posts.first.id}"
 
     comment_box = page.find('#comment_body').fill_in with: 'some random comment'

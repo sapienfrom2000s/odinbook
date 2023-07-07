@@ -13,8 +13,6 @@ gem 'sprockets-rails'
 
 gem 'rubocop-rails', require: false
 
-gem 'pry-byebug', require: false
-
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 
@@ -74,6 +72,8 @@ group :development do
   gem 'guard-rubocop'
   gem 'bullet'
   gem 'guard-livereload', '~> 2.5', require: false
+  gem 'pry-byebug'
+
 end
 
 group :test do

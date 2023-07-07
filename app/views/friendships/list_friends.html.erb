@@ -1,0 +1,11 @@
+<div class='friendlist'>
+<% @friends.each do |friend| %>
+<div class='friend card'>
+  <%= content_tag :div, class: "friend name" do %>
+    <%= friend.username %>
+  <% end %>
+  <%= content_tag :div, class: ["friend", 'chat'] do %>
+    <%= button_to 'Chat', message_index_path(friend.username), method: :get %>
+  <% end %>
+</div>
+<% end %>

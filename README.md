@@ -6,4 +6,5 @@ To Do: \
 [x] Feeds\
 [ ] notification\
 [ ] Messages\
-[ ] add hotrails
+[ ] add hotwire\
+[ ] add design
