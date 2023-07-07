@@ -5,6 +5,6 @@ To Do: \
 [x] Commenting and replying to comments is possible\
 [x] Feeds\
 [ ] notification\
-[ ] Messages\
+[x] Messages\
 [ ] add hotwire\
 [ ] add design
