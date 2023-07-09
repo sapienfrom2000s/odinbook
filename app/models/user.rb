@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :sent_messages, foreign_key: :sender, class_name: 'Message'
   has_many :received_messages, foreign_key: :receiver, class_name: 'Message'
 
+  has_many :notifications, class_name: 'Notification', foreign_key: :user
+
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :username, format: { with: /^[a-zA-Z0-9_.]*$/, multiline: true }
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :notifications
   scope ':username' do
     resources :posts do
       resources :likes, only: %i[create destroy]
