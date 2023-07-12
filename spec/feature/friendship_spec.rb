@@ -17,6 +17,8 @@ describe 'Friend request acceptance', type: :feature do
     fill_in 'Password', with: 'password'
     click_button 'Log in'
 
+    visit '/friendships'
+
     click_button 'Accept'
 
     expect(page).to have_content 'Friendship was successfully created.'

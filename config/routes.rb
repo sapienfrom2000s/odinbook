@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :notifications
+
   scope ':username' do
     resources :posts do
       resources :likes, only: %i[create destroy]
       resources :comments, except: %i[index destroy]
     end
-    resources :feeds, only: %[index]
     resources :message, only: %i[index new create]
   end
+
+  resources :feeds, only: %[index]
+  root 'feeds#index'
 
   resources :friendships, except: [:destroy]
   delete '/friendships', to: 'friendships#destroy'
@@ -26,6 +28,4 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'login', to: 'friendships#index'
   end
-
-  root 'friendships#index'
 end

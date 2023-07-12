@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :notification do
-    
   end
 
   factory :message do

@@ -4,7 +4,6 @@ class FeedsController < ApplicationController
 
   def index
     @posts = Feed.posts(current_user)
-    render 'posts/index'
   end
   
 end

@@ -38,7 +38,6 @@ feature 'send message to friends', type: :system do
 
     visit message_index_path('user_6')
     a = URI.parse(current_path)
-    binding.pry
 
     expect(URI.parse(current_path).to_s).to eq(message_friends_path)
   end 
