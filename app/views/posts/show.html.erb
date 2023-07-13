@@ -8,9 +8,6 @@
 <% else %>
 <%= render partial: "likes/dislike_button_form", locals: {post_id: post.id, like_id: like.first.id} %>
 <% end %>
-<div class='likes_count'>
-Likes: <%= @post.likes.count %>
-</div>
 
 <%= render partial: "edit_links", locals: { post: @post } if current_user.username == params[:username]  %>
 

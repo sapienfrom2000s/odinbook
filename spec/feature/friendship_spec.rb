@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry-byebug'
 require 'rails_helper'
 
 describe 'Friend request acceptance', type: :feature do

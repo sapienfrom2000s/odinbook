@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry-byebug'
 
 feature 'user can like posts', type: :feature do
   background 'log in user' do

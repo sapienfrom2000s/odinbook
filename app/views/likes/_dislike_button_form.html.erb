@@ -1,3 +1,6 @@
-<%= form_with url: post_like_url(current_user, post_id, like_id), method: :delete do |form| %>
-<%= form.submit "Unlike" %>
+<%= turbo_frame_tag "unlike_button_#{post_id}" do %>
+  <%= form_with url: post_like_url(current_user, post_id, like_id), method: :delete do |form| %>
+  <%= form.submit "Unlike" %>
+  <%= render partial: "likes/count", locals: {post: Post.find(post_id)} %>
+  <% end %>
 <% end %>

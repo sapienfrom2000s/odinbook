@@ -1,3 +1,6 @@
-<%= form_with url: post_likes_url(current_user, post_id) do |form| %>
-<%= form.submit "Like" %>
+<%= turbo_frame_tag "like_button_#{post_id}" do %>
+  <%= form_with url: post_likes_url(current_user, post_id) do |form| %>
+  <%= form.submit "Like" %>
+  <%= render partial: "likes/count", locals: {post: Post.find(post_id)} %>
+  <% end %>
 <% end %>

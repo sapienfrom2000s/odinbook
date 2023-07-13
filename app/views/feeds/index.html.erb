@@ -19,9 +19,6 @@
      <% else %>
      <%= render partial: "likes/dislike_button_form", locals: {post_id: post.id, like_id: like.first.id} %>
      <% end %>
-     <div class='likes_count'>
-        Likes: <%= @post.likes.count %>
-     </div>
     <p>
       <%= link_to "Show this post", post_url(post.creator.username,@post) %>
     </p>
