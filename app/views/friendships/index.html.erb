@@ -1,16 +1,16 @@
-<p style="color: green"><%= notice %></p>
-<%= link_to 'Log Out', destroy_user_session_path %>
-
 <h4>Friends</h4>
 
 <div id="friendships">
   <% @connections.includes(:sender, :receiver) %>
   <% @connections.each do |connection| %>
-    <%= Friendship.friend(connection,current_user) %>
-    <%= render partial: "remove_friend", locals: { friendrequest_id: connection.id } %>
+    <%= turbo_frame_tag dom_id(connection, :successful) do %> 
+      <%= Friendship.friend(connection,current_user) %>
+      <%= render partial: "remove_friend", locals: { accepted_friendrequest: connection } %>
     <br>
+    <% end %>
   <% end %>
 </div>
+
 <h4>Friend Requests</h4>
 <div id="friend_requests">
   <% @friend_requests.includes(:sender) %>

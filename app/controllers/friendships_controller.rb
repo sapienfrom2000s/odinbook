@@ -35,13 +35,8 @@ class FriendshipsController < ApplicationController
     destroyed = @connection.destroy if @connection.sender == current_user || @connection.receiver == current_user
 
     respond_to do |format|
-      if destroyed
-        format.html { redirect_to friendships_url, notice: 'Friendship was successfully destroyed.' }
-        format.json { head :no_content }
-      else
-        format.html { render :index, notice: 'Unable to remove friend' }
-        format.json { render json: @friendship.errors, status: :unprocessable_entity }
-      end
+      format.turbo_stream{ flash.now[:notice] = "Friend successfully unfriended" }
+      format.html { redirect_to friendships_url, notice: 'Friendship was successfully destroyed.' }
     end
   end
 
