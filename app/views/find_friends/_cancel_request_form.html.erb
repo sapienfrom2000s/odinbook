@@ -1,4 +1,7 @@
-<%= form_with(url: 'find_friends', scope: :friend_request, method: :delete) do |form| %>
-    <%= form.hidden_field :id, value: id %>
-    <%= form.submit "Cancel", data: { turbo_confirm: "Are you sure?" } %>
+<%= turbo_frame_tag dom_id(request.receiver) do %>
+    <%= request.receiver.username %><br>
+    <%= form_with(url: 'find_friends', scope: :friend_request, method: :delete) do |form| %>
+        <%= form.hidden_field :id, value: request.id %>
+        <%= form.submit "Cancel", data: { turbo_confirm: "Are you sure?" } %>
+    <% end %>
 <% end %>

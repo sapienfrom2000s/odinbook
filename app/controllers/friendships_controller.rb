@@ -16,16 +16,14 @@ class FriendshipsController < ApplicationController
 
   # POST /friendships or /friendships.json
   def create
-    @friendship = Friendship.new(metadata_id: friendship_params[:friendrequest_id])
-    @friendship = nil unless FriendRequest.find(friendship_params[:friendrequest_id]).receiver == current_user
+    @friendrequest_id = friendship_params[:friendrequest_id]
+    @friendship = Friendship.new(metadata_id: @friendrequest_id)
+    @friendship = nil unless FriendRequest.find(@friendrequest_id).receiver == current_user
 
     respond_to do |format|
       if @friendship.save
-        format.html { redirect_to friendships_url, notice: 'Friendship was successfully created.' }
-        format.json { render :show, status: :created, location: @friendship }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @friendship.errors, status: :unprocessable_entity }
+        format.turbo_stream{ flash.now[:notice] = "Friend Request successfully accepted" }
+        format.html { redirect_to friendships_url, notice: 'FriendRequest successfully accepted' }
       end
     end
   end

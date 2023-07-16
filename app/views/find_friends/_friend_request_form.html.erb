@@ -1,4 +1,7 @@
-<%= form_with(url: '/find_friends', scope: :potential_friend) do |form| %>
-    <%= form.hidden_field :receiver_id, value: receiver_id %>
+<%= turbo_frame_tag dom_id(potential_friend) do %>
+  <%= form_with(url: '/find_friends', scope: :potential_friend) do |form| %>
+    <%= potential_friend.username %><br>
+    <%= form.hidden_field :receiver_id, value: potential_friend.id %>
     <%= form.submit "Send FR", data: { turbo_confirm: "Are you sure?" } %>
+  <% end %>
 <% end %>

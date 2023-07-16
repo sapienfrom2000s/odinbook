@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "flash", partial: "layouts/flash" %>
+<%= turbo_stream.remove "user_#{@potential_friend.id}" %>
+<%= turbo_stream.append(:potential_friends, partial: "find_friends/friend_request_form", locals: { potential_friend: @potential_friend }) %>

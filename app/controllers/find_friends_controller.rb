@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-
-require 'pry-byebug'
 class FindFriendsController < ApplicationController
   before_action :authenticate_user!
 
@@ -16,25 +14,22 @@ class FindFriendsController < ApplicationController
 
     respond_to do |format|
       if @friendrequest.save
+        @request = User.sent_friendrequests(current_user).find_by(receiver_id: potential_friend_params[:receiver_id])
+        format.turbo_stream{ flash.now[:notice] = "Friend Request successfully sent" }
         format.html { redirect_to find_friends_url, notice: 'Friend Request was successfully sent.' }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to find_friends_url, notice: 'Unable to send Friend Request.' }
-        format.json { head :unable_to_send_request }
       end
     end
   end
 
   def destroy
     @connection = FriendRequest.find(friend_request_params[:id])
+    @potential_friend = @connection.receiver
     destroyed = @connection.destroy if @connection.sender == current_user || @connection.receiver == current_user
 
     respond_to do |format|
       if destroyed
+        format.turbo_stream{ flash.now[:notice] = "Friend request was retracted." }        
         format.html { redirect_to find_friends_url, notice: 'Friend request was retracted.' }
-        format.json { head :no_content }
-      else
-        format.html { render :index, notice: 'Unable to retract the request' }
       end
     end
   end

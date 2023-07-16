@@ -2,16 +2,14 @@
 <h4>Find Friends</h4>
 <div id="potential_friends">
   <% @potential_friends.each do |potential_friend| %>
-    <%= potential_friend.username %><br>
-    <%= render partial: "friend_request_form", locals: { receiver_id: potential_friend.id } %>
+    <%= render partial: "friend_request_form", locals: { potential_friend: potential_friend } %>
   <% end %>
 </div>
 
-<h4>Sent Requests</h4>
+<h4>Sent Requests</h4> 
 <div id="sent_requests">
   <% @sent_requests.includes(:sender) %>
   <% @sent_requests.each do |request| %>
-    <%= request.receiver.username %><br>
-    <%= render partial: "cancel_request_form", locals: { id: request.id } %>
-  <% end %>
-</div>
+      <%= render partial: "cancel_request_form", locals: { request: request } %>
+    <% end %>
+</div> 

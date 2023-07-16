@@ -3,11 +3,9 @@
 <div id="friendships">
   <% @connections.includes(:sender, :receiver) %>
   <% @connections.each do |connection| %>
-    <%= turbo_frame_tag dom_id(connection, :successful) do %> 
-      <%= Friendship.friend(connection,current_user) %>
-      <%= render partial: "remove_friend", locals: { accepted_friendrequest: connection } %>
+    <%= Friendship.friend(connection,current_user) %>
+    <%= render partial: "remove_friend", locals: { accepted_friendrequest: connection } %>
     <br>
-    <% end %>
   <% end %>
 </div>
 
@@ -15,7 +13,9 @@
 <div id="friend_requests">
   <% @friend_requests.includes(:sender) %>
   <% @friend_requests.each do |request| %>
+  <%= turbo_frame_tag dom_id(request) do %> 
     <%= request.sender.username %><br>
     <%= render partial: "accept_friendship_form", locals: { friendrequest_id: request.id } %>
+  <% end %>
   <% end %>
 </div>

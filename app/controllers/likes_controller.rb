@@ -11,8 +11,8 @@ class LikesController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace("like_button_#{params[:post_id]}",
-           partial: 'dislike_button_form', locals: { post_id: params[:post_id],
-             like_id: Like.metadata(Post.find(params[:post_id]), current_user).first.id }) 
+          partial: 'dislike_button_form', locals: { post_id: params[:post_id],
+          like_id: Like.metadata(Post.find(params[:post_id]), current_user).first.id }) 
       end
       format.html { redirect_to request.referrer }
     end

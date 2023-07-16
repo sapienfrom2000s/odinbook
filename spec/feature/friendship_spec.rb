@@ -20,7 +20,7 @@ describe 'Friend request acceptance', type: :feature do
 
     click_button 'Accept'
 
-    expect(page).to have_content 'Friendship was successfully created.'
+    expect(page).to have_content 'FriendRequest successfully accepted'
 
     click_button 'Remove'
 
