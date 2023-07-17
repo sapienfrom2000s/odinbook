@@ -15,14 +15,12 @@ class MessageController < ApplicationController
     @message = Message.new(message_params)
     @message.sender = current_user
     @message.receiver = User.find_by(username: params[:username])
+    @last_message = Message.last
 
     respond_to do |format|
       if @message.save
         format.html { redirect_to request.referrer }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { redirect_to request.referrer, notice: "Something went wrong." }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+        format.turbo_stream
       end
     end
   end
