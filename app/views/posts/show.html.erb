@@ -1,4 +1,3 @@
-<p style="color: green"><%= notice %></p>
 <% post = @post%>
 <%= render @post %>
 
@@ -11,7 +10,9 @@
 
 <%= render partial: "edit_links", locals: { post: @post } if current_user.username == params[:username]  %>
 
+<div id='comments'>
 <%= render partial: "comments/index", locals: { comments: @comments, level: 1 } %>
+</div>
 
 <%= stylesheet_link_tag 'posts_show_page' %>
   

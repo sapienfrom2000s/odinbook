@@ -7,5 +7,5 @@ To Do:
 - [x] Feeds
 - [ ] notification
 - [x] Messages
-- [ ] add hotwire
+- [x] add hotwire
 - [ ] add design
