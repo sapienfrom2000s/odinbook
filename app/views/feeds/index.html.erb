@@ -1,26 +1,29 @@
-<p style="color: green"><%= notice %></p>
+<div class='feeds'>
+  <div class='header links'>
+  <%= link_to "New post", new_post_path(current_user.username) %>
+  <%= link_to "My posts", posts_path(current_user.username) %>
+  <%= link_to "Friends", friendships_path %>
+  <%= link_to "Find Friends", find_friends_path %>
+  <%= link_to "Chat", message_friends_path %>
+  <%= link_to 'Log Out', destroy_user_session_path %> 
+  </div>
 
-<%= link_to "New post", new_post_path(current_user.username) %>
-<%= link_to "My posts", posts_path(current_user.username) %>
-<%= link_to "Friends", friendships_path %>
-<%= link_to "Find Friends", find_friends_path %>
-<%= link_to "Chat", message_friends_path %>
 
-
-<%= link_to 'Log Out', destroy_user_session_path %>
-
-<div id="posts">
-  <% @posts.each do |post| %>
-    <% @post = post %>
-    <%= render @post %>
-    <% like = Like.metadata(post, current_user) %>
-    <% unless like.exists? %>
-    <%= render partial: "likes/like_button_form", locals: {post_id: post.id} %>
-     <% else %>
-     <%= render partial: "likes/dislike_button_form", locals: {post_id: post.id, like_id: like.first.id} %>
-     <% end %>
-    <p>
-      <%= link_to "Show this post", post_url(post.creator.username,@post) %>
-    </p>
-  <% end %>
+  <div id="posts">
+    <% @posts.each do |post| %>
+      <div class='card'>
+        <% @post = post %>
+        <%= render @post %>
+        <% like = Like.metadata(post, current_user) %>
+        <% unless like.exists? %>
+        <%= render partial: "likes/like_button_form", locals: {post_id: post.id} %>
+        <% else %>
+        <%= render partial: "likes/dislike_button_form", locals: {post_id: post.id, like_id: like.first.id} %>
+        <% end %>
+        <p>
+          <%= link_to "Show this post", post_url(post.creator.username,@post) %>
+        </p>
+      </div>
+    <% end %>
+  </div>
 </div>

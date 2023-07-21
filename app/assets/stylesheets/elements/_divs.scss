@@ -1,0 +1,15 @@
+.container, .card{
+  font-family: monospace;
+  font-size: 20px;
+  width: 15em;
+  background-color: black;
+  color: cadetblue;
+  padding: 1em;
+  border-radius: 10px;
+}
+
+.card{
+  word-wrap: break-word;
+  width: 30em;
+  margin: 2em;
+}
