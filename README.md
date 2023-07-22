@@ -8,4 +8,4 @@ To Do:
 - [ ] notification
 - [x] Messages
 - [x] add hotwire
-- [ ] add design
+- [x] add design
