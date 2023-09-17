@@ -9,3 +9,10 @@ To Do:
 - [x] Messages
 - [x] add hotwire
 - [x] add design
+
+About:
+
+This was the final project in the rails path of the odin project.
+I had to use all the concept that were taught throughout the course
+to complete this project. Reading docs, asking question to peers
+were some of the important skills that I acquired.
