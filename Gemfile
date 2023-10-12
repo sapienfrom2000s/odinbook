@@ -92,3 +92,13 @@ gem 'faker', '~> 3.2'
 group :development, :test do
   gem 'factory_bot_rails'
 end
+
+gem "rails_live_reload"
+
+gem "bulma-rails", "~> 0.9.4"
+
+gem "font-awesome-sass", "~> 6.4.2"
+
+gem "htmlbeautifier", "~> 1.4"
+
+gem 'erb-formatter'
